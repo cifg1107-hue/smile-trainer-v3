@@ -118,8 +118,7 @@
       margin-top: 12px;
       font-size: 13px;
       color: #777;
-    }  
-          min-height: 20px;
+      min-height: 20px;
       white-space: pre-wrap;
     }
 
@@ -209,7 +208,7 @@
     </div>
 
     <div id="advice">
-      笑顔を作ると、
+      笑顔になると、
       ここにアドバイスが表示されます。
     </div>
 
@@ -221,7 +220,7 @@
 
   <div class="note">
     ※接客練習用の独自スコアです。<br>
-    w※医学的・心理学的な評価ではありません。<br>
+    ※医学的・心理学的な評価ではありません。<br>
     ※カメラ映像は保存しません。
   </div>
 
@@ -357,7 +356,7 @@ async function prepareAI() {
     );
 
   statusEl.textContent =
-    "準備OK。笑ってみてください 😊";
+    "準備OK。笑ってみてください！";
 
 }
 
@@ -448,7 +447,7 @@ function updateResult(categories) {
 
     total =
       Math.min(total, 72);
-  ｝
+  }
       if (eyeScore < 35) {
 
     total =
