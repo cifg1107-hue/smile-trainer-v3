@@ -423,84 +423,64 @@ function updateResult(categories) {
     );
 
 
-  let total =
-    mouthScore * 0.58 +
-    eyeScore * 0.32;
+const strictMouth =
+  mouthScore <= 55
+    ? 0
+    : 100 * Math.pow(
+        (mouthScore - 55) / 45,
+        2.2
+      );
 
+const strictEye =
+  eyeScore <= 45
+    ? 0
+    : 100 * Math.pow(
+        (eyeScore - 45) / 55,
+        2.2
+      );
 
-  if (mouthScore >= 35) {
+let total =
+  strictMouth * 0.65 +
+  strictEye * 0.35;
 
-    total +=
-      balanceScore * 0.10;
+if (balanceScore < 85) {
+  total *= 0.90;
+}
 
+if (balanceScore < 70) {
+  total *= 0.82;
+}
+
+total =
+  clamp(
+    Math.round(total),
+    0,
+    99
+  );
+
+const perfect =
+  mouthScore === 100 &&
+  eyeScore === 100 &&
+  balanceScore >= 98;
+
+if (perfect) {
+
+  if (perfectStart === null) {
+    perfectStart = performance.now();
   }
 
-
-  if (mouthScore < 45) {
-
-    total =
-      Math.min(total, 49);
-
+  if (
+    performance.now() -
+    perfectStart >= 2500
+  ) {
+    total = 100;
   }
 
-  if (mouthScore < 65) {
+} else {
 
-    total =
-      Math.min(total, 72);
-  }
-      if (eyeScore < 35) {
+  perfectStart = null;
 
-    total =
-      Math.min(total, 58);
-
-  }
-
-  if (eyeScore < 55) {
-
-    total =
-      Math.min(total, 78);
-
-  }
-
-
-  total =
-    clamp(
-      Math.round(total),
-      0,
-      99
-    );
-
-
-  const perfect =
-    mouthScore >= 96 &&
-    eyeScore >= 90 &&
-    balanceScore >= 90;
-
-
-  if (perfect) {
-
-    if (perfectStart === null) {
-
-      perfectStart =
-        performance.now();
-
-    }
-
-    if (
-      performance.now() -
-      perfectStart >= 1000
-    ) {
-
-      total = 100;
-
-    }
-
-  } else {
-
-    perfectStart = null;
-
-  }
-
+}  
 
   scoreEl.textContent =
     total + "点";
