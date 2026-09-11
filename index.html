@@ -221,6 +221,13 @@
 
   <div class="note">
     ※接客練習用の独自スコアです。<br>
+    w※医学的・心理学的な評価ではありません。<br>
+    ※カメラ映像は保存しません。
+  </div>
+
+</div>
+
+<script type="module">
     const video =
   document.getElementById("video");
 
@@ -441,6 +448,7 @@ function updateResult(categories) {
 
     total =
       Math.min(total, 72);
+  ｝
       if (eyeScore < 35) {
 
     total =
@@ -497,7 +505,7 @@ function updateResult(categories) {
 
   scoreEl.textContent =
     total + "点";
-  }   
+    
   mouthValue.textContent =
     mouthScore;
 
@@ -521,7 +529,7 @@ function updateResult(categories) {
   if (total === 100) {
 
     rankEl.textContent =
-      "🏆 100点！お手本レベル";
+      "★★★★★ 100点！お手本レベル";
 
   } else if (total >= 90) {
 
@@ -650,6 +658,15 @@ startButton.addEventListener(
 
       startButton.textContent =
         "準備しています…";
+
+      statusEl.textContent =
+        "準備しています…";
+
+　　　　if (!faceLandmarker) {
+
+  await prepareAI();
+
+}
        statusEl.textContent =
         "カメラ許可を確認してください";
 
